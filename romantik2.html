@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sadece Senin İçin ❤️</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+    
+    <style>
+        /* Renkler ve Fontlar */
+        :root {
+            --main-red: #D21B63; /* Canlı Bordo/Kırmızı */
+            --light-pink: #FEEAE6; /* Çok Açık Pembe Arka Plan */
+            --accent-pink: #FFC0CB; /* Vurgu pembe */
+            --text-color: #4A4A4A;
+            --font-fancy: 'Dancing Script', cursive;
+            --font-body: 'Montserrat', sans-serif;
+        }
+
+        /* Genel Mobil Uyumlu Stil */
+        body {
+            margin: 0;
+            font-family: var(--font-body);
+            color: var(--text-color);
+            background-color: var(--light-pink);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px 0;
+            position: relative;
+            overflow-x: hidden;
+            overflow-y: scroll;
+        }
+
+        .container {
+            width: 90%; 
+            max-width: 700px;
+            margin: 15px auto;
+            padding: 25px;
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            opacity: 0;
+            animation: fadeInTop 1s forwards ease-out;
+            z-index: 10;
+        }
+
+        h1 {
+            font-family: var(--font-fancy);
+            color: var(--main-red);
+            font-size: 3em; 
+            margin-bottom: 10px;
+            animation: textPopIn 1.2s forwards ease-out 0.5s;
+            opacity: 0;
+        }
+
+        /* Sayaç Kutusu Stilleri (Counting UP) */
+        .duration-box {
+            margin: 25px 0;
+            padding: 20px;
+            background: linear-gradient(45deg, var(--main-red), #FF527F);
+            border-radius: 15px;
+            color: white;
+            animation: pulse 2s infinite alternate;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+        
+        .duration-box h2 {
+            font-size: 1.4em;
+            margin-top: 0;
+            color: white;
+        }
+
+        .timer {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 15px;
+            flex-wrap: wrap;
+        }
+
+        .time-unit {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 10px 5px;
+            min-width: 60px; 
+            margin: 5px;
+        }
+
+        .time-unit span {
+            font-size: 2em;
+            font-weight: 700;
+            color: var(--accent-pink); /* Vurgu pembe */
+            text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+            line-height: 1.1;
+        }
+
+        .time-unit small {
+            font-size: 0.7em;
+            text-transform: uppercase;
+            color: white;
+            margin-top: 5px;
+        }
+        
+        /* Gizli Mesaj Stilleri */
+        .secret-message-btn {
+            background-color: #4CAF50; /* Yeşil buton */
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: background-color 0.3s;
+        }
+        .secret-message-btn:hover {
+            background-color: #45a049;
+        }
+
+        .secret-message-content {
+            background-color: #e8f5e9;
+            padding: 0 15px; /* Başlangıçta sıfır padding */
+            border-radius: 10px;
+            margin-top: 10px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease-in-out, padding 0.5s ease-in-out;
+        }
+        
+        .secret-message-content.active {
+            max-height: 300px; /* Açık halde yükseklik */
+            padding: 15px;
+        }
+
+
+        /* Animasyonlar */
+        @keyframes fadeInTop {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes textPopIn {
+            from { opacity: 0; transform: scale(0.8); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+            100% { transform: scale(1); }
+        }
+
+        /* Fışkıran Kalpler Animasyonu (Kutucuksuz) */
+        .heart-particle {
+            position: absolute;
+            color: var(--main-red);
+            font-size: 25px; 
+            opacity: 0;
+            animation: flyAndFade 4s ease-out forwards;
+            pointer-events: none;
+            z-index: 5;
+        }
+
+        @keyframes flyAndFade {
+            0% { 
+                transform: translate(0, 0) scale(0.5); 
+                opacity: 0;
+            }
+            20% { 
+                opacity: 1; 
+                transform: translate(var(--x-offset), var(--y-offset)) scale(1.2) rotate(var(--rot)); 
+            }
+            100% { 
+                transform: translate(var(--x-offset-final), var(--y-offset-final)) scale(0.8) rotate(var(--rot)); 
+                opacity: 0; 
+            }
+        }
+    </style>
+</head>
+<body>
+    
+    <div class="container">
+        <h1>Sadece Benim Güzel Sevgilim İçin ❤️</h1>
+        
+        <p style="font-style: italic;">Hoş geldin aşkım. Bu sayfa, seninle geçen her anın ne kadar değerli olduğunu göstermek için tasarlandı.</p>
+
+        <div class="duration-box">
+            <h2>Beraber geçirdiğimiz süre... </h2>
+            <div class="timer">
+                <div class="time-unit"><span id="days">00</span><small>Gün</small></div>
+                <div class="time-unit"><span id="hours">00</span><small>Saat</small></div>
+                <div class="time-unit"><span id="minutes">00</span><small>Dakika</small></div>
+                <div class="time-unit"><span id="seconds">00</span><small>Saniye</small></div>
+            </div>
+            <p style="margin-top: 10px; font-size: 0.9em; color: var(--accent-pink);">12 Kasım 2025'ten bu yana...</p>
+        </div>
+        <button class="secret-message-btn" onclick="toggleSecretMessage()">
+            Tıkla        </button>
+        <div id="secretMessageArea" class="secret-message-content">
+            <p>
+                Aşkım, bazen kelimeler yetmez biliyorum. Ama şunu bil ki, hayatımın en güzel hediyesi sensin. 
+                Bu siteyi yaparken içimde hissettiğim heyecan, seninle geçirdiğim her anın bir yansıması. 
+                Sana olan sevgim sonsuzdur. Her zaman yanımda kal. ❤️
+            </p>
+        </div>
+        <p style="margin-top: 30px; font-weight: 600;">Bu sayfayı hep dolduracağım senle olduğumuz sürede ❤️ </p>
+
+    </div>
+
+    <script>
+        // Başlangıç Tarihi: 12 Kasım 2025 00:00:00
+        const startDate = new Date("Nov 12, 2025 00:00:00").getTime();
+
+        function updateDuration() {
+            const now = new Date().getTime();
+            const duration = now - startDate; // Geçen Süre (milisaniye)
+
+            // Zaman hesaplamaları
+            const seconds = Math.floor((duration / 1000) % 60);
+            const minutes = Math.floor((duration / (1000 * 60)) % 60);
+            const hours = Math.floor((duration / (1000 * 60 * 60)) % 24);
+            const days = Math.floor(duration / (1000 * 60 * 60 * 24));
+
+            // Sonucu HTML elementlerine yazdırma
+            document.getElementById("days").innerHTML = String(days).padStart(2, '0');
+            document.getElementById("hours").innerHTML = String(hours).padStart(2, '0');
+            document.getElementById("minutes").innerHTML = String(minutes).padStart(2, '0');
+            document.getElementById("seconds").innerHTML = String(seconds).padStart(2, '0');
+        }
+
+        // Başlangıçta çalıştır ve sonra her saniye tekrar et
+        updateDuration();
+        setInterval(updateDuration, 1000);
+        
+        // Gizli Mesaj Açma/Kapama Fonksiyonu
+        function toggleSecretMessage() {
+            const msgBox = document.getElementById('secretMessageArea');
+            msgBox.classList.toggle('active'); 
+        }
+
+        // Fışkıran Kalpler Animasyonu Scripti (Kutucuksuz)
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.innerHTML = '❤️'; 
+            heart.classList.add('heart-particle');
+            
+            const startX = Math.random() * window.innerWidth;
+            heart.style.left = `${startX}px`;
+            heart.style.top = `${window.innerHeight - 20}px`; 
+            
+            const rotation = (Math.random() * 60) - 30;
+
+            heart.style.setProperty('--x-offset', `${(Math.random() - 0.5) * 200}px`);
+            heart.style.setProperty('--y-offset', `-${Math.random() * 150}px`);
+            heart.style.setProperty('--x-offset-final', `${(Math.random() - 0.5) * 300}px`);
+            heart.style.setProperty('--y-offset-final', `-${window.innerHeight * 1.5}px`); 
+            heart.style.setProperty('--rot', `${rotation}deg`);
+
+            document.body.appendChild(heart);
+
+            heart.addEventListener('animationend', () => {
+                heart.remove();
+            });
+        }
+
+        // Belirli aralıklarla kalp oluştur
+        setInterval(createHeart, 250);
+    </script>
+</body>
+</html>
